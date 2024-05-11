@@ -1,6 +1,8 @@
 import networkx as nx
+import matplotlib.pyplot as plt
 
-rutasFile = "/Users/alejandraayala/Documents/Trabajos_UVG/Semestre 3/EstructuraDatos/HDT9_Alg.Dijkstra/rutas.txt"
+#rutasFile = "/Users/alejandraayala/Documents/Trabajos_UVG/Semestre 3/EstructuraDatos/HDT9_Alg.Dijkstra/rutas.txt"
+rutasFile = "rutas.txt"
 
 class Rutas:
     # Crear grafo
@@ -27,8 +29,24 @@ class Rutas:
             costo = sum(self.grafo[path[i]][path[i+1]]['weight'] for i in range(len(path)-1))
             print(f'Destino: {destino}, Costo: {costo}')
 
+    # ver wel grafo 
+    def visualizar_grafo(self):
+        # Dibujar el grafo utilizando networkx y matplotlib
+        plt.figure(figsize=(8, 6))
+        pos = nx.spring_layout(self.grafo)  # Layout para posicionar nodos
+        nx.draw(self.grafo, pos, with_labels=True, node_color='skyblue', node_size=600, font_size=10, font_color='black')
+
+        # Mostrar pesos de las aristas
+        edge_labels = nx.get_edge_attributes(self.grafo, 'weight')
+        nx.draw_networkx_edge_labels(self.grafo, pos, edge_labels=edge_labels)
+
+        plt.title('Mapa de Rutas')
+        plt.show()
+
 def main():
     scheduler = Rutas(rutasFile)
+    scheduler.visualizar_grafo()
+
     start_station = input("Entre la estacion de salida: ")
     scheduler.display_map(start_station)
 

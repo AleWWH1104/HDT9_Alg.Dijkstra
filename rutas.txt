@@ -2,3 +2,4 @@ Pueblo Paleta,Aldea Azalea,100
 Aldea Azalea,Ciudad Safiro,150
 Pueblo Paleta,Ciudad Safiro,800
 Ciudad Lavanda,Aldea Fuego,300
+Aldea Fuego,Ciudad Safiro,500
