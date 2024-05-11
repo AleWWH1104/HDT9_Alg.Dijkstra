@@ -72,13 +72,32 @@ class Rutas:
         plt.title('Mapa de Rutas')
         plt.show()
 
+    # algortimo de dijkstra
+    def dijkstra_mejores_rutas(self, salida):
+        if salida not in self.grafo:
+            print(f'La estación {salida} no existe en el mapa.')
+            return
+
+        # Aplicar algoritmo de Dijkstra para encontrar las mejores rutas desde la estación de salida
+        mejores_rutas = nx.single_source_dijkstra_path(self.grafo, source=salida, weight='weight')
+        mejores_costos = nx.single_source_dijkstra_path_length(self.grafo, source=salida, weight='weight')
+
+        # Mostrar los resultados de las mejores rutas y costos
+        print(f'Mejores rutas desde la Estación {salida}:')
+        for destino, ruta in mejores_rutas.items():
+            costo = mejores_costos[destino]
+            print(f'Destino: {destino}, Ruta: {ruta}, Costo: {costo}')
+
 def main():
     scheduler = Rutas(rutasFile)
 
-    #scheduler.visualizar_grafo()
+    scheduler.visualizar_grafo()
 
     start_station = input("Entre la estacion de salida: ")
     scheduler.display_map(start_station)
+    scheduler.dijkstra_mejores_rutas(start_station)
+
+
 
 if __name__ == "__main__":
     main()
